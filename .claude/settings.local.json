@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sI -m 12 \"https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100\" -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -sI -m 12 \"https://www.pexels.com\" -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -sI -m 12 \"https://mixkit.co\" -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -sI -m 12 \"https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js\" -o /dev/null -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(mkdir -p css js assets/img assets/video assets/img/services assets/img/industries assets/img/testimonials)",
+      "Bash(curl -sL -m 30 \"https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js\" -o js/gsap.min.js -w \"%{http_code} %{size_download}b\\\\n\")",
+      "Bash(curl -sL -m 30 \"https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js\" -o js/ScrollTrigger.min.js -w \"%{http_code} %{size_download}b\\\\n\")",
+      "Bash(mkdir -p __TRACKED_VAR__/imgtest)",
+      "Bash(curl -sL -m 20 https://loremflickr.com/1200/800/factory,industrial -o __TRACKED_VAR__/imgtest/lf.jpg -w '%{http_code} %{content_type} %{size_download}b\\\\n')",
+      "WebSearch",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:mixkit.co)",
+      "Bash(mv -f IBMPlexSans-400.woff2 IBMPlexSans.woff2)",
+      "Bash(rm -f IBMPlexSans-500.woff2 IBMPlexSans-600.woff2 IBMPlexSans-700.woff2)",
+      "Bash(python3 -)",
+      "Bash(timeout 180 npx -y playwright@1.48 screenshot --channel=chrome --full-page --viewport-size=1440,1000 file://__TRACKED_VAR__/index.qa.html __TRACKED_VAR__/shots/full-desktop.png)",
+      "Bash(npx -y playwright@1.48 screenshot --channel=chrome --full-page --viewport-size=1440,1000 file://__TRACKED_VAR__/index.qa.html __TRACKED_VAR__/shots/full-desktop.png)",
+      "Bash(node mobilecap.js)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/harbingermarketing/.claude/skills/impeccable/scripts/hook.mjs\"",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes"
+          }
+        ]
+      }
+    ]
+  },
+  "description": "Impeccable design detector: runs after Edit/Write/MultiEdit on UI files and surfaces findings as system reminders."
+}
